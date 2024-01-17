@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block 'head' %}
+    <link rel="stylesheet" href="{% static 'clients/css/clients.css' %}">
+{% endblock %}
+
+{% block dashboard %}
+    <div class="container">
+        <br>
+        <h1 class="title_clients">CUSTOMER</h1>
+        <div class="row">
+
+            <div class="col-md card-dashboard">
+                <p>Create new Client</p>
+            </div>
+
+            <div class="col-md card-dashboard">
+                <p>Update Clients</p>
+            </div>
+
+        </div>
+
+        <div id="adicionar-cliente" class="adicionar-cliente">
+            <form action="{% url 'clients' %}" method="POST">
+                {% csrf_token %}
+                <br>
+                <div class="row">
+                    <div class="col-md">
+                        <p>Name:</p>
+                        <input type="text" class="form-control" placeholder="Full Name" name="nome" value="{{nome}}">
+                    </div>
+                    <div class="col-md">
+                        <p>Username:</p>
+                        <input type="text" class="form-control" placeholder="Username" name="sobrenome" value="{{sobrenome}}">
+                    </div>
+                </div>
+                <br>
+                <p>E-mail:</p>
+                <input type="email" class="form-control" placeholder="name@email.com" name="email" value="{{email}}">
+                <br>
+                <p>Phone Numer:</p>
+                <input type="tel" class="form-control" placeholder="56911111111" name="phone_number" value="{{phone_number}}">
+                <br>
+                <p>DNI:</p>
+                <!--CPF: Sinónimo de RUT en Chile-->
+                <input type="text" class="form-control" placeholder="11.111.111-K" name="cpf" value="{{cpf}}">
+
+                <hr style="background-color:gray;">
+
+                <div class="add-carros">
+                    <h3>CARS</h3>
+                    <br>
+                    <span class="btn-add-carros" onclick="add_carro()"><i class="fa-solid fa-plus"></i> NEW CAR</span>
+                    <div id="form-carro">
+                        {% for carro, placa, ano in carros %}
+                        <br>
+                        <div class="row">
+                                <div class="col-md">
+                                    <input type='text' placeholder='Car' class='form-control' name='carro' value="{{carro}}">
+                                </div>
+
+                                <div class="col-md">
+                                    <input type='text' placeholder='Patent' class='form-control' name='placa' value="{{placa}}">
+                                </div>
+
+                                <div class="col-md">
+                                    <input type='number' placeholder='Year' class='form-control' name='ano' value="{{ano}}">
+                            </div>
+                        </div>
+                        {% endfor %}
+
+                    </div>
+
+                </div>
+                <br>
+                <div>
+                    <input type="submit" value="+ CREATE CAR" class="btn-principal">
+                </div>
+                
+                
+
+            </form>
+        </div>
+
+    </div>
+    <script src="{% static 'clients/js/clients.js' %}"></script>
+{% endblock  %}
